@@ -67,9 +67,11 @@
         </div>
 
         <div class="card">
-            <h2>Study Timer</h2>
-            <p>25 Minutes Focus Session (Pomodoro)</p>
-        </div>
+    <h2>Study Timer</h2>
+    <h3 id="timer">25:00</h3>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+</div>
 
         <div class="card">
             <h2>Goals for 2026</h2>
@@ -82,5 +84,36 @@
 
     </div>
 
+<script>
+    let time = 1500; // 25 minutes in seconds
+    let interval;
+
+    function updateDisplay() {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        document.getElementById("timer").innerText = minutes + ":" + seconds;
+    }
+
+    function startTimer() {
+        if (!interval) {
+            interval = setInterval(() => {
+                if (time > 0) {
+                    time--;
+                    updateDisplay();
+                }
+            }, 1000);
+        }
+    }
+
+    function resetTimer() {
+        clearInterval(interval);
+        interval = null;
+        time = 1500;
+        updateDisplay();
+    }
+
+    updateDisplay();
+</script>
 </body>
 </html>
