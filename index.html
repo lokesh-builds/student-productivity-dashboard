@@ -103,6 +103,7 @@
     <h3 id="timer">25:00</h3>
     <button onclick="startTimer()">Start</button>
     <button onclick="resetTimer()">Reset</button>
+    <p class="streak">🔥 Current Streak: <span id="streak">0</span></p>
 </div>
 
         <div class="card">
@@ -117,8 +118,9 @@
     </div>
 
 <script>
-    let time = 1500; // 25 minutes in seconds
+    let time = 10;
     let interval;
+    let streak = 0;
 
     function updateDisplay() {
         let minutes = Math.floor(time / 60);
@@ -133,6 +135,12 @@
                 if (time > 0) {
                     time--;
                     updateDisplay();
+                } else {
+                    clearInterval(interval);
+                    interval = null;
+                    streak++;
+                    document.getElementById("streak").textContent = streak;
+                    alert("🔥 Session Complete! Streak Increased!");
                 }
             }, 1000);
         }
@@ -147,5 +155,3 @@
 
     updateDisplay();
 </script>
-</body>
-</html>
