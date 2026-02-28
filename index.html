@@ -120,13 +120,15 @@
 <script>
     let time = 10;
     let interval;
-    let streak = 0;
-
+    let streak = localStorage.getItem("streak") 
+    ? parseInt(localStorage.getItem("streak")) 
+    : 0;
     function updateDisplay() {
         let minutes = Math.floor(time / 60);
         let seconds = time % 60;
         seconds = seconds < 10 ? "0" + seconds : seconds;
         document.getElementById("timer").textContent = minutes + ":" + seconds;
+        document.getElementById("streak").textContent = streak;
     }
 
     function startTimer() {
@@ -139,6 +141,7 @@
                     clearInterval(interval);
                     interval = null;
                     streak++;
+                    localStorage.setItem("streak", streak);
                     document.getElementById("streak").textContent = streak;
                     alert("🔥 Session Complete! Streak Increased!");
                 }
