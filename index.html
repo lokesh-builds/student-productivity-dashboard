@@ -3,6 +3,12 @@
 <head>
     <title>Student Productivity Dashboard</title>
     <style>
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-right: 10px;
+        }
     body {
         font-family: 'Segoe UI', sans-serif;
         background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -91,11 +97,11 @@
 
         <div class="card">
             <h2>Today's Tasks</h2>
-            <ul>
-                <li>Complete Physics revision</li>
-                <li>Practice Maths problems</li>
-                <li>Work on coding project</li>
-            </ul>
+
+            <input id="taskInput" placeholder="Enter a new task" />
+            <button onclick="addTask()">Add Task</button>
+
+            <ul id="taskList"></ul>
         </div>
 
         <div class="card">
@@ -157,4 +163,39 @@
     }
 
     updateDisplay();
+    function addTask() {
+    const input = document.getElementById("taskInput");
+    const taskText = input.value;
+
+    if (taskText === "") return;
+
+    const li = document.createElement("li");
+    li.textContent = taskText;
+
+    document.getElementById("taskList").appendChild(li);
+
+    saveTasks();
+    input.value = "";
+}
+
+function saveTasks() {
+    const tasks = [];
+    document.querySelectorAll("#taskList li").forEach(li => {
+        tasks.push(li.textContent);
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const saved = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    saved.forEach(task => {
+        const li = document.createElement("li");
+        li.textContent = task;
+        document.getElementById("taskList").appendChild(li);
+    });
+}
+
+loadTasks();
 </script>
