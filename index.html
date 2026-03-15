@@ -1,272 +1,382 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Productivity Dashboard</title>
-    <style>
-        input {
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            margin-right: 10px;
-        }
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #0f172a, #1e293b);
-        color: white;
-        margin: 0;
-        padding: 0;
-    }
+<title>Student Productivity Dashboard</title>
 
-    header {
-        padding: 25px;
-        text-align: center;
-        font-size: 32px;
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
+<style>
 
-    .container {
-        max-width: 700px;
-        margin: auto;
-        padding: 20px;
-    }
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+margin:0;
+padding:0;
+}
 
-    .card {
-        background-color: #1e293b;
-        padding: 25px;
-        margin-bottom: 25px;
-        border-radius: 16px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        transition: transform 0.2s ease;
-    }
+header{
+padding:25px;
+text-align:center;
+font-size:32px;
+font-weight:bold;
+}
 
-    .card:hover {
-        transform: translateY(-5px);
-    }
+.container{
+max-width:700px;
+margin:auto;
+padding:20px;
+}
 
-    h2 {
-        margin-top: 0;
-        color: #38bdf8;
-    }
+.card{
+background-color:#1e293b;
+padding:25px;
+margin-bottom:25px;
+border-radius:16px;
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
+transition:transform 0.2s ease;
+}
 
-    ul {
-        padding-left: 20px;
-    }
+.card:hover{
+transform:translateY(-5px);
+}
 
-    li {
-        margin-bottom: 10px;
-    }
+h2{
+margin-top:0;
+color:#38bdf8;
+}
 
-    #timer {
-        font-size: 40px;
-        margin: 15px 0;
-        color: #22c55e;
-    }
+input{
+padding:10px;
+border-radius:8px;
+border:none;
+margin-right:10px;
+}
 
-    button {
-        padding: 10px 20px;
-        margin-right: 10px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        background-color: #38bdf8;
-        color: black;
-        transition: 0.2s ease;
-    }
+ul{
+padding-left:20px;
+}
 
-    button:hover {
-        background-color: #0ea5e9;
-        transform: scale(1.05);
-    }
+#taskList li{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+}
 
-    .streak {
-        font-size: 20px;
-        color: #facc15;
-        font-weight: bold;
-    }
-    <div class="card">
-    <h2>📊 Productivity Stats</h2>
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+background:#38bdf8;
+color:black;
+transition:0.2s;
+}
 
-    <p>Total Tasks Completed: <span id="tasksCompleted">0</span></p>
+button:hover{
+background:#0ea5e9;
+transform:scale(1.05);
+}
 
-    <p>Focus Sessions: <span id="sessions">0</span></p>
+#timer{
+font-size:40px;
+margin:15px 0;
+color:#22c55e;
+}
 
-    <p>Productivity Score: <span id="score">0</span></p>
+.streak{
+font-size:20px;
+color:#facc15;
+font-weight:bold;
+}
 
-    </div>
-    #taskList li {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
+.goal{
+color:#22c55e;
+}
+
 </style>
 </head>
+
 <body>
 
-    <header>
-        🚀 Student Productivity Dashboard
-    </header>
+<header>
+🚀 Student Productivity Dashboard
+</header>
 
-    <div class="container">
+<div class="container">
 
-        <div class="card">
-            <h2>Today's Tasks</h2>
+<!-- Stats -->
+<div class="card">
+<h2>📊 Productivity Stats</h2>
 
-            <input id="taskInput" placeholder="Enter a new task" />
-            <button onclick="addTask()">Add Task</button>
+<p>Total Tasks Completed: <span id="tasksCompleted">0</span></p>
 
-            <ul id="taskList"></ul>
-        </div>
+<p>Focus Sessions: <span id="sessions">0</span></p>
 
-        <div class="card">
-    <h2>Study Timer</h2>
-    <h3 id="timer">25:00</h3>
-    <button onclick="startTimer()">Start</button>
-    <button onclick="resetTimer()">Reset</button>
-    <p class="streak">🔥 Current Streak: <span id="streak">0</span></p>
+<p>Productivity Score: <span id="score">0</span></p>
+
 </div>
 
-        <div class="card">
-            <h2>Goals for 2026</h2>
-            <ul class="goal">
-                <li>Participate in 5 Hackathons</li>
-                <li>Build 5 Projects</li>
-                <li>Learn Full Stack Development</li>
-            </ul>
-        </div>
+<!-- Tasks -->
+<div class="card">
 
-    </div>
+<h2>Today's Tasks</h2>
+
+<input id="taskInput" placeholder="Enter a new task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="taskList"></ul>
+
+</div>
+
+<!-- Timer -->
+<div class="card">
+
+<h2>Study Timer</h2>
+
+<h3 id="timer">25:00</h3>
+
+<button onclick="startTimer()">Start</button>
+<button onclick="resetTimer()">Reset</button>
+
+<p class="streak">🔥 Current Streak: <span id="streak">0</span></p>
+
+</div>
+
+<!-- Goals -->
+<div class="card">
+
+<h2>Goals for 2026</h2>
+
+<ul class="goal">
+<li>Participate in 5 Hackathons</li>
+<li>Build 5 Projects</li>
+<li>Learn Full Stack Development</li>
+</ul>
+
+</div>
+
+<!-- AI Quiz -->
+<div class="card">
+
+<h2>🧠 AI Study Quiz</h2>
+
+<button onclick="generateQuiz()">Generate Quiz From Tasks</button>
+
+<div id="quizArea"></div>
+
+</div>
+
+</div>
 
 <script>
-    let time = 10;
-    let interval;
-    let streak = localStorage.getItem("streak") 
-    ? parseInt(localStorage.getItem("streak")) 
-    : 0;
-    function updateDisplay() {
-        let minutes = Math.floor(time / 60);
-        let seconds = time % 60;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        document.getElementById("timer").textContent = minutes + ":" + seconds;
-        document.getElementById("streak").textContent = streak;
-    }
 
-    function startTimer() {
-        if (!interval) {
-            interval = setInterval(() => {
-                if (time > 0) {
-                    time--;
-                    updateDisplay();
-                } else {
-                    clearInterval(interval);
-                    interval = null;
-                    streak++;
-                    localStorage.setItem("streak", streak);
-                    document.getElementById("streak").textContent = streak;
-                    alert("🔥 Session Complete! Streak Increased!");
-                }
-            }, 1000);
-        }
-    }
+let time=1500
+let interval
 
-    function resetTimer() {
-        clearInterval(interval);
-        interval = null;
-        time = 1500;
-        updateDisplay();
-    }
+let streak=localStorage.getItem("streak")?parseInt(localStorage.getItem("streak")):0
 
-    updateDisplay();
-    function addTask() {
-    const input = document.getElementById("taskInput");
-    const taskText = input.value;
+function updateDisplay(){
 
-    if (taskText === "") return;
+let minutes=Math.floor(time/60)
+let seconds=time%60
 
-    const li = document.createElement("li");
+seconds=seconds<10?"0"+seconds:seconds
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
+document.getElementById("timer").textContent=minutes+":"+seconds
+document.getElementById("streak").textContent=streak
 
-    checkbox.addEventListener("change", () => {
-        if (checkbox.checked) {
-            li.style.textDecoration = "line-through";
-            streak++;
-            document.getElementById("streak").textContent = streak;
-            localStorage.setItem("streak", streak);
-        } else {
-            li.style.textDecoration = "none";
-        }
-        saveTasks();
-    });
-
-    const span = document.createElement("span");
-    span.textContent = " " + taskText;
-
-    li.appendChild(checkbox);
-    li.appendChild(span);
-
-    document.getElementById("taskList").appendChild(li);
-
-    saveTasks();
-    input.value = "";
 }
 
-function saveTasks() {
-    const tasks = [];
+function startTimer(){
 
-    document.querySelectorAll("#taskList li").forEach(li => {
-        const text = li.querySelector("span").textContent.trim();
-        const completed = li.querySelector("input").checked;
+if(!interval){
 
-        tasks.push({ text, completed });
-    });
+interval=setInterval(()=>{
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+if(time>0){
+
+time--
+updateDisplay()
+
 }
 
-function loadTasks() {
-    const saved = JSON.parse(localStorage.getItem("tasks")) || [];
+else{
 
-    saved.forEach(task => {
-        const li = document.createElement("li");
+clearInterval(interval)
+interval=null
 
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = task.completed;
-        let completed = localStorage.getItem("completedTasks") || 0;
-        completed++;
-        localStorage.setItem("completedTasks", completed);
+streak++
+localStorage.setItem("streak",streak)
 
-        document.getElementById("tasksCompleted").textContent = completed;
+document.getElementById("streak").textContent=streak
 
-        const span = document.createElement("span");
-        span.textContent = " " + task.text;
+alert("🔥 Session Complete!")
 
-        if (task.completed) {
-            li.style.textDecoration = "line-through";
-        }
-
-        checkbox.addEventListener("change", () => {
-            if (checkbox.checked) {
-                li.style.textDecoration = "line-through";
-                streak++;
-                document.getElementById("streak").textContent = streak;
-                localStorage.setItem("streak", streak);
-            } else {
-                li.style.textDecoration = "none";
-            }
-            saveTasks();
-        });
-
-        li.appendChild(checkbox);
-        li.appendChild(span);
-
-        document.getElementById("taskList").appendChild(li);
-        document.getElementById("tasksCompleted").textContent =
-        localStorage.getItem("completedTasks") || 0;
-    });
 }
+
+},1000)
+
+}
+
+}
+
+function resetTimer(){
+
+clearInterval(interval)
+interval=null
+time=1500
+updateDisplay()
+
+}
+
+updateDisplay()
+
+function addTask(){
+
+const input=document.getElementById("taskInput")
+const taskText=input.value
+
+if(taskText==="")return
+
+const li=document.createElement("li")
+
+const checkbox=document.createElement("input")
+checkbox.type="checkbox"
+
+checkbox.addEventListener("change",()=>{
+
+if(checkbox.checked){
+
+li.style.textDecoration="line-through"
+
+streak++
+localStorage.setItem("streak",streak)
+
+document.getElementById("streak").textContent=streak
+
+}
+
+else{
+
+li.style.textDecoration="none"
+
+}
+
+saveTasks()
+
+})
+
+const span=document.createElement("span")
+span.textContent=" "+taskText
+
+li.appendChild(checkbox)
+li.appendChild(span)
+
+document.getElementById("taskList").appendChild(li)
+
+saveTasks()
+
+input.value=""
+
+}
+
+function saveTasks(){
+
+const tasks=[]
+
+document.querySelectorAll("#taskList li").forEach(li=>{
+
+const text=li.querySelector("span").textContent.trim()
+const completed=li.querySelector("input").checked
+
+tasks.push({text,completed})
+
+})
+
+localStorage.setItem("tasks",JSON.stringify(tasks))
+
+}
+
+function loadTasks(){
+
+const saved=JSON.parse(localStorage.getItem("tasks"))||[]
+
+saved.forEach(task=>{
+
+const li=document.createElement("li")
+
+const checkbox=document.createElement("input")
+checkbox.type="checkbox"
+checkbox.checked=task.completed
+
+const span=document.createElement("span")
+span.textContent=" "+task.text
+
+if(task.completed){
+
+li.style.textDecoration="line-through"
+
+}
+
+checkbox.addEventListener("change",()=>{
+
+if(checkbox.checked){
+
+li.style.textDecoration="line-through"
+
+streak++
+localStorage.setItem("streak",streak)
+
+document.getElementById("streak").textContent=streak
+
+}
+
+else{
+
+li.style.textDecoration="none"
+
+}
+
+saveTasks()
+
+})
+
+li.appendChild(checkbox)
+li.appendChild(span)
+
+document.getElementById("taskList").appendChild(li)
+
+})
+
+}
+
+loadTasks()
+
+function generateQuiz(){
+
+const tasks=JSON.parse(localStorage.getItem("tasks"))||[]
+
+if(tasks.length===0){
+
+document.getElementById("quizArea").innerHTML="Complete some tasks first!"
+return
+
+}
+
+let quizHTML="<h3>Practice Questions</h3>"
+
+tasks.forEach((task,i)=>{
+
+quizHTML+=`<p><b>Q${i+1}:</b> Explain what you learned from "${task.text}"</p>`
+
+})
+
+document.getElementById("quizArea").innerHTML=quizHTML
+
+}
+
 </script>
+
+</body>
+</html>
