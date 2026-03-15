@@ -170,7 +170,27 @@
     if (taskText === "") return;
 
     const li = document.createElement("li");
-    li.textContent = taskText;
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+            li.style.textDecoration = "line-through";
+            streak++;
+            document.getElementById("streak").textContent = streak;
+            localStorage.setItem("streak", streak);
+        } else {
+            li.style.textDecoration = "none";
+        }
+        saveTasks();
+    });
+
+    const span = document.createElement("span");
+    span.textContent = " " + taskText;
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
 
     document.getElementById("taskList").appendChild(li);
 
@@ -180,8 +200,12 @@
 
 function saveTasks() {
     const tasks = [];
+
     document.querySelectorAll("#taskList li").forEach(li => {
-        tasks.push(li.textContent);
+        const text = li.querySelector("span").textContent.trim();
+        const completed = li.querySelector("input").checked;
+
+        tasks.push({ text, completed });
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -192,10 +216,34 @@ function loadTasks() {
 
     saved.forEach(task => {
         const li = document.createElement("li");
-        li.textContent = task;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+
+        const span = document.createElement("span");
+        span.textContent = " " + task.text;
+
+        if (task.completed) {
+            li.style.textDecoration = "line-through";
+        }
+
+        checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+                li.style.textDecoration = "line-through";
+                streak++;
+                document.getElementById("streak").textContent = streak;
+                localStorage.setItem("streak", streak);
+            } else {
+                li.style.textDecoration = "none";
+            }
+            saveTasks();
+        });
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+
         document.getElementById("taskList").appendChild(li);
     });
 }
-
-loadTasks();
 </script>
